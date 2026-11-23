@@ -32,22 +32,25 @@
 
 <div dir="rtl">
 
-| القسم | ما يشمله |
-|---|---|
-| العنوان والشبكة | عناوين IPv4 وIPv6، ومزوّد الشبكة (ASN) ومالكها، والدولة، والاسم العكسي (PTR)، وكشف وجود CDN |
-| TLS والشهادة | قبول TLS 1.0 و1.1، ودعم TLS 1.3، والتشفير الضعيف (3DES وRC4)، وForward Secrecy، وصلاحية الشهادة وتاريخ انتهائها |
-| HTTPS والتحويلات | التحويل من HTTP إلى HTTPS، ونوعه (301 أو 308)، وسلسلة التحويلات، ومرورها عبر HTTP |
-| هيدرات الأمان | ‏HSTS، وCSP، وX-Content-Type-Options، والحماية من Clickjacking، وReferrer-Policy، وPermissions-Policy، وكشف إصدارات البرمجيات |
-| السكربتات والمحتوى | السكربتات الخارجية بدون SRI، والاستيراد الديناميكي، وeval، وملفات source map، والمحتوى المختلط، والنماذج غير المشفرة |
-| التقنيات والمكتبات | التعرف على الخادم والـ CDN ونظام إدارة المحتوى، والمكتبات القديمة ذات الثغرات المعروفة (jQuery وBootstrap وAngularJS وLodash وMoment) مع مصدر كل اكتشاف |
-| جدار الحماية (WAF) | التعرف على 18 نظاماً، منها Cloudflare وF5 وFortiWeb وImperva وAkamai وAWS وAzure، واختبار هل يحجب الهجمات فعلاً، وكشف عنوان الخادم الأصلي المكشوف من خلفه |
-| WordPress | كشف أسماء المستخدمين، وxmlrpc، وسجل debug.log، وملف readme، وفهرسة مجلد uploads، والنسخ الاحتياطية من wp-config |
-| الكوكيز و CORS | خصائص الكوكيز (Secure وHttpOnly وSameSite)، وإعدادات CORS الخطرة، وطريقة TRACE |
-| ملفات ومجلدات مكشوفة | 30 ملفاً حساساً، مثل ‎`.env` و‎`.git` ونسخ قواعد البيانات، و9 مجلدات للفهرسة، ولوحات phpMyAdmin |
-| ملف security.txt | وجوده، وحقل Expires، وصلاحيته |
-| DNS والبريد | ‏SPF مع عدّ الاستعلامات، وDMARC، وDKIM بـ 28 محدِّداً، وMTA-STS، وTLS-RPT، وCAA، وDNSSEC، وخوادم الأسماء |
-| المنافذ (اختياري) | 27 منفذاً خطيراً، مثل Redis وMySQL وRDP وDocker وElasticsearch |
-| النطاقات الفرعية (اختياري) | جمعها من سجلات الشهادات، وكشف سجلات CNAME المعلّقة وخطر الاستيلاء عليها |
+<table>
+<thead><tr><th>القسم</th><th>ما يشمله</th></tr></thead>
+<tbody>
+<tr><td>العنوان والشبكة</td><td>عناوين IPv4 وIPv6، ومزوّد الشبكة (ASN) ومالكها، والدولة، والاسم العكسي (PTR)، وكشف وجود CDN</td></tr>
+<tr><td>TLS والشهادة</td><td>قبول TLS 1.0 و1.1، ودعم TLS 1.3، والتشفير الضعيف (3DES وRC4)، وForward Secrecy، وصلاحية الشهادة وتاريخ انتهائها</td></tr>
+<tr><td>HTTPS والتحويلات</td><td>التحويل من HTTP إلى HTTPS، ونوعه (301 أو 308)، وسلسلة التحويلات، ومرورها عبر HTTP</td></tr>
+<tr><td>هيدرات الأمان</td><td>‏HSTS، وCSP، وX-Content-Type-Options، والحماية من Clickjacking، وReferrer-Policy، وPermissions-Policy، وكشف إصدارات البرمجيات</td></tr>
+<tr><td>السكربتات والمحتوى</td><td>السكربتات الخارجية بدون SRI، والاستيراد الديناميكي، وeval، وملفات source map، والمحتوى المختلط، والنماذج غير المشفرة</td></tr>
+<tr><td>التقنيات والمكتبات</td><td>التعرف على الخادم والـ CDN ونظام إدارة المحتوى، والمكتبات القديمة ذات الثغرات المعروفة (jQuery وBootstrap وAngularJS وLodash وMoment) مع مصدر كل اكتشاف</td></tr>
+<tr><td>جدار الحماية (WAF)</td><td>التعرف على 18 نظاماً، منها Cloudflare وF5 وFortiWeb وImperva وAkamai وAWS وAzure، واختبار هل يحجب الهجمات فعلاً، وكشف عنوان الخادم الأصلي المكشوف من خلفه</td></tr>
+<tr><td>WordPress</td><td>كشف أسماء المستخدمين، وxmlrpc، وسجل debug.log، وملف readme، وفهرسة مجلد uploads، والنسخ الاحتياطية من wp-config</td></tr>
+<tr><td>الكوكيز و CORS</td><td>خصائص الكوكيز (Secure وHttpOnly وSameSite)، وإعدادات CORS الخطرة، وطريقة TRACE</td></tr>
+<tr><td>ملفات ومجلدات مكشوفة</td><td>30 ملفاً حساساً، مثل ‎<code>.env</code> و‎<code>.git</code> ونسخ قواعد البيانات، و9 مجلدات للفهرسة، ولوحات phpMyAdmin</td></tr>
+<tr><td>ملف security.txt</td><td>وجوده، وحقل Expires، وصلاحيته</td></tr>
+<tr><td>DNS والبريد</td><td>‏SPF مع عدّ الاستعلامات، وDMARC، وDKIM بـ 28 محدِّداً، وMTA-STS، وTLS-RPT، وCAA، وDNSSEC، وخوادم الأسماء</td></tr>
+<tr><td>المنافذ (اختياري)</td><td>27 منفذاً خطيراً، مثل Redis وMySQL وRDP وDocker وElasticsearch</td></tr>
+<tr><td>النطاقات الفرعية (اختياري)</td><td>جمعها من سجلات الشهادات، وكشف سجلات CNAME المعلّقة وخطر الاستيلاء عليها</td></tr>
+</tbody>
+</table>
 
 </div>
 
@@ -55,12 +58,15 @@
 
 <div dir="rtl">
 
-| التصنيف | المعنى |
-|---|---|
-| ✖ خطر | مشكلة تحتاج إصلاحاً، وتخصم 12 نقطة |
-| ⚠ تحذير | نقطة ضعف أو إعداد ناقص، ويخصم 4 نقاط |
-| ✔ سليم | الإعداد صحيح |
-| ℹ معلومة | معلومة للاطلاع، بدون أثر على النتيجة |
+<table>
+<thead><tr><th>التصنيف</th><th>المعنى</th></tr></thead>
+<tbody>
+<tr><td>✖ خطر</td><td>مشكلة تحتاج إصلاحاً، وتخصم 12 نقطة</td></tr>
+<tr><td>⚠ تحذير</td><td>نقطة ضعف أو إعداد ناقص، ويخصم 4 نقاط</td></tr>
+<tr><td>✔ سليم</td><td>الإعداد صحيح</td></tr>
+<tr><td>ℹ معلومة</td><td>معلومة للاطلاع، بدون أثر على النتيجة</td></tr>
+</tbody>
+</table>
 
 </div>
 
@@ -204,12 +210,15 @@ python3 site_audit.py [OPTIONS] TARGET [TARGET ...]
 
 <div dir="rtl">
 
-| الخيار | الوظيفة |
-|---|---|
-| الموقع مباشرة | فحص موقع واحد، مثل `example.com` أو `https://www.example.com` |
-| عدة مواقع | فحصها دفعة واحدة: `example.com example.org` |
-| الخيار ‎`-f FILE` | قراءة المواقع من ملف، كل موقع في سطر، والأسطر التي تبدأ بـ ‎`#`‎ تُتجاهل |
-| الخيار ‎`--domain` | تحديد النطاق الرئيسي لفحوصات DNS يدوياً |
+<table>
+<thead><tr><th>الخيار</th><th>الوظيفة</th></tr></thead>
+<tbody>
+<tr><td>الموقع مباشرة</td><td>فحص موقع واحد، مثل <code>example.com</code> أو <code>https://www.example.com</code></td></tr>
+<tr><td>عدة مواقع</td><td>فحصها دفعة واحدة: <code>example.com example.org</code></td></tr>
+<tr><td nowrap>الخيار ‎<code>-f FILE</code></td><td>قراءة المواقع من ملف، كل موقع في سطر، والأسطر التي تبدأ بـ ‎<code>#</code>‎ تُتجاهل</td></tr>
+<tr><td nowrap>الخيار ‎<code>--domain</code></td><td>تحديد النطاق الرئيسي لفحوصات DNS يدوياً</td></tr>
+</tbody>
+</table>
 
 </div>
 
@@ -217,14 +226,17 @@ python3 site_audit.py [OPTIONS] TARGET [TARGET ...]
 
 <div dir="rtl">
 
-| الخيار | الوظيفة |
-|---|---|
-| بدون خيارات | الفحص العادي: TLS والهيدرات والمحتوى والـ WAF مع اختبار الحجب والملفات الحساسة وDNS |
-| الخيار ‎`--passive` | وضع سلبي: يلاحظ فقط ولا يرسل أي طلب يشبه الهجوم |
-| الخيار ‎`--ports` | يضيف فحص المنافذ الخطرة |
-| الخيار ‎`--subdomains` | يضيف فحص النطاقات الفرعية وخطر الاستيلاء عليها |
-| الخيار ‎`--full` | كل الفحوصات، بما فيها المنافذ والنطاقات الفرعية |
-| الخيار ‎`--skip-dns` | يتخطى فحوصات DNS والبريد، وهذا أسرع |
+<table>
+<thead><tr><th>الخيار</th><th>الوظيفة</th></tr></thead>
+<tbody>
+<tr><td>بدون خيارات</td><td>الفحص العادي: TLS والهيدرات والمحتوى والـ WAF مع اختبار الحجب والملفات الحساسة وDNS</td></tr>
+<tr><td nowrap>الخيار ‎<code>--passive</code></td><td>وضع سلبي: يلاحظ فقط ولا يرسل أي طلب يشبه الهجوم</td></tr>
+<tr><td nowrap>الخيار ‎<code>--ports</code></td><td>يضيف فحص المنافذ الخطرة</td></tr>
+<tr><td nowrap>الخيار ‎<code>--subdomains</code></td><td>يضيف فحص النطاقات الفرعية وخطر الاستيلاء عليها</td></tr>
+<tr><td nowrap>الخيار ‎<code>--full</code></td><td>كل الفحوصات، بما فيها المنافذ والنطاقات الفرعية</td></tr>
+<tr><td nowrap>الخيار ‎<code>--skip-dns</code></td><td>يتخطى فحوصات DNS والبريد، وهذا أسرع</td></tr>
+</tbody>
+</table>
 
 </div>
 
@@ -232,15 +244,18 @@ python3 site_audit.py [OPTIONS] TARGET [TARGET ...]
 
 <div dir="rtl">
 
-| الخيار | الوظيفة |
-|---|---|
-| الخيار ‎`--html FILE` | حفظ تقرير HTML |
-| الخيار ‎`--open` | فتح تقرير HTML في المتصفح تلقائياً |
-| الخيار ‎`--json FILE` | حفظ النتائج بصيغة JSON |
-| الخيار ‎`-q` | عرض المشاكل فقط في الطرفية |
-| الخيار ‎`--no-color` | إلغاء الألوان |
-| الخيار ‎`--timeout N` | مهلة كل اتصال بالثواني، والافتراضي 10 |
-| الخيار ‎`-h` | عرض المساعدة |
+<table>
+<thead><tr><th>الخيار</th><th>الوظيفة</th></tr></thead>
+<tbody>
+<tr><td nowrap>الخيار ‎<code>--html FILE</code></td><td>حفظ تقرير HTML</td></tr>
+<tr><td nowrap>الخيار ‎<code>--open</code></td><td>فتح تقرير HTML في المتصفح تلقائياً</td></tr>
+<tr><td nowrap>الخيار ‎<code>--json FILE</code></td><td>حفظ النتائج بصيغة JSON</td></tr>
+<tr><td nowrap>الخيار ‎<code>-q</code></td><td>عرض المشاكل فقط في الطرفية</td></tr>
+<tr><td nowrap>الخيار ‎<code>--no-color</code></td><td>إلغاء الألوان</td></tr>
+<tr><td nowrap>الخيار ‎<code>--timeout N</code></td><td>مهلة كل اتصال بالثواني، والافتراضي 10</td></tr>
+<tr><td nowrap>الخيار ‎<code>-h</code></td><td>عرض المساعدة</td></tr>
+</tbody>
+</table>
 
 </div>
 
@@ -305,13 +320,16 @@ python3 site_audit.py example.com --html report.html
 
 <div dir="rtl">
 
-| النظام | الأمر |
-|---|---|
-| ماك | `open report.html` |
-| لينكس | `xdg-open report.html` |
-| ويندوز | `start report.html` |
-| تيرمكس | `termux-open report.html` |
-| الكل | أضف ‎`--open` لفتحه تلقائياً |
+<table>
+<thead><tr><th>النظام</th><th>الأمر</th></tr></thead>
+<tbody>
+<tr><td>ماك</td><td nowrap><code>open report.html</code></td></tr>
+<tr><td>لينكس</td><td nowrap><code>xdg-open report.html</code></td></tr>
+<tr><td>ويندوز</td><td nowrap><code>start report.html</code></td></tr>
+<tr><td>تيرمكس</td><td nowrap><code>termux-open report.html</code></td></tr>
+<tr><td>الكل</td><td nowrap>أضف ‎<code>--open</code> لفتحه تلقائياً</td></tr>
+</tbody>
+</table>
 
 </div>
 
@@ -334,11 +352,14 @@ python3 site_audit.py example.com --html report.html ; open report.html
 
 <div dir="rtl">
 
-| الوضع | ما يفعله | متى تستخدمه |
-|---|---|---|
-| الوضع السلبي ‎`--passive` | يقرأ ما يراه أي زائر عادي: الشهادة والهيدرات والصفحة الرئيسية وDNS | أي موقع لا تملكه |
-| الوضع العادي | يضيف اختبارات حجب الـ WAF والبحث عن الملفات الحساسة | موقعك، أو موقع لديك إذن مكتوب بفحصه |
-| الخيار ‎`--ports` أو ‎`--full` | يضيف فحص المنافذ | موقعك وخوادمك فقط |
+<table>
+<thead><tr><th>الوضع</th><th>ما يفعله</th><th>متى تستخدمه</th></tr></thead>
+<tbody>
+<tr><td nowrap>الوضع السلبي ‎<code>--passive</code></td><td>يقرأ ما يراه أي زائر عادي: الشهادة والهيدرات والصفحة الرئيسية وDNS</td><td>أي موقع لا تملكه</td></tr>
+<tr><td>الوضع العادي</td><td>يضيف اختبارات حجب الـ WAF والبحث عن الملفات الحساسة</td><td>موقعك، أو موقع لديك إذن مكتوب بفحصه</td></tr>
+<tr><td nowrap>الخيار ‎<code>--ports</code> أو ‎<code>--full</code></td><td>يضيف فحص المنافذ</td><td>موقعك وخوادمك فقط</td></tr>
+</tbody>
+</table>
 
 </div>
 
@@ -352,11 +373,14 @@ python3 site_audit.py example.com --html report.html ; open report.html
 
 <div dir="rtl">
 
-| الرقم | المعنى |
-|---|---|
-| ‏0 | لا توجد مشاكل خطيرة |
-| ‏1 | وُجدت مشكلة واحدة على الأقل مصنفة **خطر** |
-| ‏2 | خطأ في كتابة الأمر، مثل خيار غير معروف أو عدم تحديد موقع |
+<table>
+<thead><tr><th>الرقم</th><th>المعنى</th></tr></thead>
+<tbody>
+<tr><td>‏0</td><td>لا توجد مشاكل خطيرة</td></tr>
+<tr><td>‏1</td><td>وُجدت مشكلة واحدة على الأقل مصنفة <strong>خطر</strong></td></tr>
+<tr><td>‏2</td><td>خطأ في كتابة الأمر، مثل خيار غير معروف أو عدم تحديد موقع</td></tr>
+</tbody>
+</table>
 
 </div>
 
