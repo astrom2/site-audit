@@ -215,8 +215,8 @@ python3 site_audit.py [OPTIONS] TARGET [TARGET ...]
 <tbody>
 <tr><td>الموقع مباشرة</td><td>فحص موقع واحد، مثل <code>example.com</code> أو <code>https://www.example.com</code></td></tr>
 <tr><td>عدة مواقع</td><td>فحصها دفعة واحدة: <code>example.com example.org</code></td></tr>
-<tr><td nowrap>الخيار ‎<code>-f FILE</code></td><td>قراءة المواقع من ملف، كل موقع في سطر، والأسطر التي تبدأ بـ ‎<code>#</code>‎ تُتجاهل</td></tr>
-<tr><td nowrap>الخيار ‎<code>--domain</code></td><td>تحديد النطاق الرئيسي لفحوصات DNS يدوياً</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>-f FILE</kbd></td><td>قراءة المواقع من ملف، كل موقع في سطر، والأسطر التي تبدأ بـ ‎<code>#</code>‎ تُتجاهل</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--domain</kbd></td><td>تحديد النطاق الرئيسي لفحوصات DNS يدوياً</td></tr>
 </tbody>
 </table>
 
@@ -230,11 +230,11 @@ python3 site_audit.py [OPTIONS] TARGET [TARGET ...]
 <thead><tr><th>الخيار</th><th>الوظيفة</th></tr></thead>
 <tbody>
 <tr><td>بدون خيارات</td><td>الفحص العادي: TLS والهيدرات والمحتوى والـ WAF مع اختبار الحجب والملفات الحساسة وDNS</td></tr>
-<tr><td nowrap>الخيار ‎<code>--passive</code></td><td>وضع سلبي: يلاحظ فقط ولا يرسل أي طلب يشبه الهجوم</td></tr>
-<tr><td nowrap>الخيار ‎<code>--ports</code></td><td>يضيف فحص المنافذ الخطرة</td></tr>
-<tr><td nowrap>الخيار ‎<code>--subdomains</code></td><td>يضيف فحص النطاقات الفرعية وخطر الاستيلاء عليها</td></tr>
-<tr><td nowrap>الخيار ‎<code>--full</code></td><td>كل الفحوصات، بما فيها المنافذ والنطاقات الفرعية</td></tr>
-<tr><td nowrap>الخيار ‎<code>--skip-dns</code></td><td>يتخطى فحوصات DNS والبريد، وهذا أسرع</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--passive</kbd></td><td>وضع سلبي: يلاحظ فقط ولا يرسل أي طلب يشبه الهجوم</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--ports</kbd></td><td>يضيف فحص المنافذ الخطرة</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--subdomains</kbd></td><td>يضيف فحص النطاقات الفرعية وخطر الاستيلاء عليها</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--full</kbd></td><td>كل الفحوصات، بما فيها المنافذ والنطاقات الفرعية</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--skip-dns</kbd></td><td>يتخطى فحوصات DNS والبريد، وهذا أسرع</td></tr>
 </tbody>
 </table>
 
@@ -247,13 +247,13 @@ python3 site_audit.py [OPTIONS] TARGET [TARGET ...]
 <table>
 <thead><tr><th>الخيار</th><th>الوظيفة</th></tr></thead>
 <tbody>
-<tr><td nowrap>الخيار ‎<code>--html FILE</code></td><td>حفظ تقرير HTML</td></tr>
-<tr><td nowrap>الخيار ‎<code>--open</code></td><td>فتح تقرير HTML في المتصفح تلقائياً</td></tr>
-<tr><td nowrap>الخيار ‎<code>--json FILE</code></td><td>حفظ النتائج بصيغة JSON</td></tr>
-<tr><td nowrap>الخيار ‎<code>-q</code></td><td>عرض المشاكل فقط في الطرفية</td></tr>
-<tr><td nowrap>الخيار ‎<code>--no-color</code></td><td>إلغاء الألوان</td></tr>
-<tr><td nowrap>الخيار ‎<code>--timeout N</code></td><td>مهلة كل اتصال بالثواني، والافتراضي 10</td></tr>
-<tr><td nowrap>الخيار ‎<code>-h</code></td><td>عرض المساعدة</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--html FILE</kbd></td><td>حفظ تقرير HTML</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--open</kbd></td><td>فتح تقرير HTML في المتصفح تلقائياً</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--json FILE</kbd></td><td>حفظ النتائج بصيغة JSON</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>-q</kbd></td><td>عرض المشاكل فقط في الطرفية</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--no-color</kbd></td><td>إلغاء الألوان</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--timeout N</kbd></td><td>مهلة كل اتصال بالثواني، والافتراضي 10</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>-h</kbd></td><td>عرض المساعدة</td></tr>
 </tbody>
 </table>
 
@@ -323,11 +323,11 @@ python3 site_audit.py example.com --html report.html
 <table>
 <thead><tr><th>النظام</th><th>الأمر</th></tr></thead>
 <tbody>
-<tr><td>ماك</td><td nowrap><code>open report.html</code></td></tr>
-<tr><td>لينكس</td><td nowrap><code>xdg-open report.html</code></td></tr>
-<tr><td>ويندوز</td><td nowrap><code>start report.html</code></td></tr>
-<tr><td>تيرمكس</td><td nowrap><code>termux-open report.html</code></td></tr>
-<tr><td>الكل</td><td nowrap>أضف ‎<code>--open</code> لفتحه تلقائياً</td></tr>
+<tr><td>ماك</td><td nowrap><kbd>open report.html</kbd></td></tr>
+<tr><td>لينكس</td><td nowrap><kbd>xdg-open report.html</kbd></td></tr>
+<tr><td>ويندوز</td><td nowrap><kbd>start report.html</kbd></td></tr>
+<tr><td>تيرمكس</td><td nowrap><kbd>termux-open report.html</kbd></td></tr>
+<tr><td>الكل</td><td nowrap>أضف ‎<kbd>--open</kbd> لفتحه تلقائياً</td></tr>
 </tbody>
 </table>
 
@@ -355,9 +355,9 @@ python3 site_audit.py example.com --html report.html ; open report.html
 <table>
 <thead><tr><th>الوضع</th><th>ما يفعله</th><th>متى تستخدمه</th></tr></thead>
 <tbody>
-<tr><td nowrap>الوضع السلبي ‎<code>--passive</code></td><td>يقرأ ما يراه أي زائر عادي: الشهادة والهيدرات والصفحة الرئيسية وDNS</td><td>أي موقع لا تملكه</td></tr>
+<tr><td nowrap>الوضع السلبي ‎<kbd>--passive</kbd></td><td>يقرأ ما يراه أي زائر عادي: الشهادة والهيدرات والصفحة الرئيسية وDNS</td><td>أي موقع لا تملكه</td></tr>
 <tr><td>الوضع العادي</td><td>يضيف اختبارات حجب الـ WAF والبحث عن الملفات الحساسة</td><td>موقعك، أو موقع لديك إذن مكتوب بفحصه</td></tr>
-<tr><td nowrap>الخيار ‎<code>--ports</code> أو ‎<code>--full</code></td><td>يضيف فحص المنافذ</td><td>موقعك وخوادمك فقط</td></tr>
+<tr><td nowrap>الخيار ‎<kbd>--ports</kbd> أو ‎<kbd>--full</kbd></td><td>يضيف فحص المنافذ</td><td>موقعك وخوادمك فقط</td></tr>
 </tbody>
 </table>
 
