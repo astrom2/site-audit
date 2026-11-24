@@ -48,7 +48,7 @@ import warnings
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-VERSION = "2.1"
+VERSION = "2.2"
 UA = "Mozilla/5.0 (compatible; SiteAudit/%s; +security-self-assessment)" % VERSION
 
 PASS, WARN, FAIL, INFO = "pass", "warn", "fail", "info"
@@ -1576,6 +1576,168 @@ def write_html(all_res, path):
 
 # ═════════════════════════════ main ═════════════════════════════
 
+# ═════════════════════════════ الوضع التفاعلي ═════════════════════════════
+# يعمل عند فتح الأداة بنقرة مزدوجة (Windows) أو تشغيلها بدون أي خيارات.
+# طرفية Windows لا تعرض العربية بشكل سليم، لذلك القائمة فيها بالإنجليزية؛ والتقرير عربي دائماً.
+
+UI = {
+    "en": {
+        "title": "Site Audit %s - website security scanner" % VERSION,
+        "legal": "Only scan websites you own or have written permission to test.",
+        "ask_site": "Website(s) to scan, e.g. example.com  (q = quit): ",
+        "menu": ["Choose scan type:",
+                 "  [1] Passive  - safe for ANY website (looks like a normal visitor)",
+                 "  [2] Standard - your own sites: + WAF blocking test, exposed files",
+                 "  [3] Full     - Standard + open ports + subdomains (your servers only)",
+                 "  [4] Custom   - choose each option"],
+        "ask_choice": "Choice [1-4] (Enter = 1): ",
+        "ask_auth": "Do you own this website or have written permission to test it? (y/N): ",
+        "no_auth": "OK - switching to Passive mode.",
+        "c_active": "Send active probes (WAF test, sensitive files)? (y/N): ",
+        "c_ports": "Scan dangerous open ports? (y/N): ",
+        "c_subs": "Look up subdomains and takeover risk? (y/N): ",
+        "c_dns": "Check DNS and e-mail records? (Y/n): ",
+        "scanning": "Scanning %s ",
+        "result": "  Score %d/100 (%s)  -  %d critical, %d warnings, %d passed",
+        "saved": "HTML report saved:",
+        "opening": "Opening the report in your browser...",
+        "again": "Scan another website? (y/N): ",
+        "bye": "Press Enter to exit...",
+        "error": "Unexpected error:",
+        "yes": ("y", "yes"),
+    },
+    "ar": {
+        "title": "أداة الفحص الأمني %s" % VERSION,
+        "legal": "افحص فقط المواقع التي تملكها أو لديك إذن مكتوب بفحصها.",
+        "ask_site": "الموقع أو المواقع المراد فحصها، مثل example.com (q للخروج): ",
+        "menu": ["اختر نوع الفحص:",
+                 "  [1] سلبي  - آمن لأي موقع، يتصرف كزائر عادي",
+                 "  [2] عادي  - لمواقعك: يضيف اختبار حجب WAF والملفات المكشوفة",
+                 "  [3] شامل  - العادي + المنافذ + النطاقات الفرعية (لخوادمك فقط)",
+                 "  [4] مخصص - اختر كل خيار بنفسك"],
+        "ask_choice": "اختيارك [1-4] (Enter = 1): ",
+        "ask_auth": "هل تملك هذا الموقع أو لديك إذن مكتوب بفحصه؟ (y/N): ",
+        "no_auth": "حسناً، سيتم الفحص بالوضع السلبي.",
+        "c_active": "إرسال اختبارات نشطة (اختبار WAF والملفات الحساسة)؟ (y/N): ",
+        "c_ports": "فحص المنافذ الخطرة؟ (y/N): ",
+        "c_subs": "فحص النطاقات الفرعية وخطر الاستيلاء؟ (y/N): ",
+        "c_dns": "فحص سجلات DNS والبريد؟ (Y/n): ",
+        "scanning": "جارٍ فحص %s ",
+        "result": "  النتيجة %d/100 (%s) - %d خطر، %d تحذير، %d سليم",
+        "saved": "تم حفظ تقرير HTML:",
+        "opening": "يُفتح التقرير في المتصفح...",
+        "again": "فحص موقع آخر؟ (y/N): ",
+        "bye": "اضغط Enter للخروج...",
+        "error": "خطأ غير متوقع:",
+        "yes": ("y", "yes", "نعم", "ن"),
+    },
+}
+
+
+def reports_dir():
+    """مجلد التقارير: Documents/SiteAudit-Reports (أو المجلد الرئيسي إن لم يوجد Documents)."""
+    home = os.path.expanduser("~")
+    docs = os.path.join(home, "Documents")
+    base = docs if os.path.isdir(docs) else home
+    path = os.path.join(base, "SiteAudit-Reports")
+    os.makedirs(path, exist_ok=True)
+    return path
+
+
+def open_file(path):
+    try:
+        if os.name == "nt":
+            os.startfile(path)  # noqa: S606
+        elif sys.platform == "darwin":
+            os.system('open "%s"' % path)
+        else:
+            import webbrowser
+            webbrowser.open("file://" + path)
+    except Exception:  # noqa: BLE001
+        pass
+
+
+def interactive():
+    L = UI["en" if os.name == "nt" else "ar"]
+
+    def ask(prompt):
+        try:
+            return input(prompt).strip()
+        except EOFError:
+            return "q"
+
+    def yes(prompt, default=False):
+        a = ask(prompt).lower()
+        return default if not a else a in L["yes"]
+
+    print("=" * 66)
+    print("  " + L["title"])
+    print("  " + L["legal"])
+    print("=" * 66)
+    code = 0
+    while True:
+        print()
+        raw = ask(L["ask_site"])
+        if raw.lower() in ("q", "quit", "exit"):
+            break
+        targets = list(dict.fromkeys(t for t in re.split(r"[\s,;]+", raw) if t))
+        if not targets:
+            continue
+        print()
+        for line in L["menu"]:
+            print(line)
+        choice = ask(L["ask_choice"]) or "1"
+        ns = argparse.Namespace(domain=None, full=False, ports=False, subdomains=False,
+                                skip_probes=True, skip_dns=False, timeout=10)
+        if choice in ("2", "3", "4"):
+            if not yes(L["ask_auth"]):
+                print(L["no_auth"])
+                choice = "1"
+        if choice == "2":
+            ns.skip_probes = False
+        elif choice == "3":
+            ns.skip_probes, ns.full = False, True
+        elif choice == "4":
+            ns.skip_probes = not yes(L["c_active"])
+            ns.ports = (not ns.skip_probes) and yes(L["c_ports"])
+            ns.subdomains = yes(L["c_subs"])
+            ns.skip_dns = not yes(L["c_dns"], default=True)
+
+        all_res = []
+        for t in targets:
+            print()
+            sys.stdout.write(L["scanning"] % t)
+            sys.stdout.flush()
+
+            def log(_m):
+                sys.stdout.write(".")
+                sys.stdout.flush()
+            r = audit(t, ns, log)
+            all_res.append(r)
+            n = r.counts()
+            print()
+            print(L["result"] % (r.score(), r.grade(), n[FAIL], n[WARN], n[PASS]))
+            if n[FAIL]:
+                code = 1
+
+        stamp = dt.datetime.now().strftime("%Y-%m-%d_%H%M")
+        first = re.sub(r"[^\w.-]", "_", all_res[0].target)
+        name = ("%s_%s.html" % (first, stamp)) if len(all_res) == 1 else ("%d-sites_%s.html" % (len(all_res), stamp))
+        path = os.path.join(reports_dir(), name)
+        write_html(all_res, path)
+        print()
+        print(L["saved"])
+        print("  " + path)
+        print(L["opening"])
+        open_file(path)
+        print()
+        if not yes(L["again"]):
+            break
+    print()
+    ask(L["bye"])
+    return code
+
+
 def main():
     ap = argparse.ArgumentParser(description="فحص أمني خارجي عام وغير مُتلِف لمواقع الويب ونطاقاتها.",
                                  epilog="استخدمها فقط على مواقع تملكها أو لديك إذن بفحصها.")
@@ -1594,7 +1756,34 @@ def main():
     ap.add_argument("--timeout", type=float, default=10, help="مهلة كل اتصال بالثواني (افتراضي 10)")
     ap.add_argument("--no-color", action="store_true", help="بدون ألوان")
     ap.add_argument("--open", action="store_true", help="فتح تقرير HTML في المتصفح بعد الانتهاء")
+    ap.add_argument("-i", "--interactive", action="store_true",
+                    help="الوضع التفاعلي: يسألك عن الموقع ونوع الفحص ويحفظ تقرير HTML تلقائياً (يعمل أيضاً عند التشغيل بدون خيارات)")
     a = ap.parse_args()
+
+    # Windows: مخرجات UTF-8 للعربية، وتفعيل ألوان ANSI في الطرفية
+    for stream in (sys.stdout, sys.stderr):
+        try:
+            stream.reconfigure(encoding="utf-8", errors="replace")
+        except (AttributeError, ValueError):
+            pass
+    if os.name == "nt":
+        os.system("")
+
+    # الوضع التفاعلي: بطلب صريح، أو عند التشغيل بدون أي خيارات (مثل النقر المزدوج على الملف في Windows)
+    if a.interactive or (len(sys.argv) == 1 and sys.stdin.isatty()):
+        try:
+            sys.exit(interactive())
+        except KeyboardInterrupt:
+            sys.exit(130)
+        except Exception as e:  # noqa: BLE001 — حتى لا تُغلق النافذة قبل أن يقرأ المستخدم الخطأ
+            import traceback
+            traceback.print_exc()
+            print("\n" + UI["en" if os.name == "nt" else "ar"]["error"], e)
+            try:
+                input(UI["en" if os.name == "nt" else "ar"]["bye"])
+            except EOFError:
+                pass
+            sys.exit(1)
 
     targets = list(a.targets)
     if a.file:
@@ -1606,14 +1795,6 @@ def main():
     if a.domain and len(targets) > 1:
         ap.error("--domain يُستخدم مع موقع واحد فقط")
 
-    # Windows: مخرجات UTF-8 للعربية، وتفعيل ألوان ANSI في الطرفية
-    for stream in (sys.stdout, sys.stderr):
-        try:
-            stream.reconfigure(encoding="utf-8", errors="replace")
-        except (AttributeError, ValueError):
-            pass
-    if os.name == "nt":
-        os.system("")
     use_color = sys.stdout.isatty() and not a.no_color and os.environ.get("NO_COLOR") is None
     all_res = []
     for idx, t in enumerate(targets, 1):

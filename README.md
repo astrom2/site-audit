@@ -151,23 +151,48 @@ python3 site_audit.py example.com
 
 ### نظام Windows
 
-1. ثبّت بايثون من [python.org](https://www.python.org/downloads/)، وفعّل خيار **Add python.exe to PATH** أثناء التثبيت.
-2. افتح **Windows Terminal** أو PowerShell في مجلد الأداة، ثم شغّلها:
+**الطريقة الأسهل: التشغيل بنقرة مزدوجة**
 
-    ```powershell
-    py site_audit.py example.com
-    ```
+1. ثبّت بايثون من [python.org](https://www.python.org/downloads/)، وفعّل خيار **Add python.exe to PATH** أثناء التثبيت.
+2. حمّل المستودع من زر **Code** ثم **Download ZIP**، وفك الضغط في أي مجلد.
+3. انقر نقراً مزدوجاً على الملف <code dir="ltr">site-audit-windows.bat</code>، وتفتح نافذة الأداة.
+4. اكتب الموقع، مثل <code dir="ltr">example.com</code>، ثم اضغط Enter. ولفحص أكثر من موقع افصل بينها بمسافة أو فاصلة.
+5. اختر نوع الفحص من القائمة:
+
+<div dir="rtl">
+
+<table>
+<thead><tr><th>الرقم</th><th>نوع الفحص</th><th>متى تستخدمه</th></tr></thead>
+<tbody>
+<tr><td>1</td><td>سلبي (Passive)</td><td>أي موقع، لأنه يتصرف كزائر عادي. هذا الاختيار الافتراضي عند الضغط على Enter</td></tr>
+<tr><td>2</td><td>عادي (Standard)</td><td>مواقعك: يضيف اختبار حجب الـ WAF والبحث عن الملفات المكشوفة</td></tr>
+<tr><td>3</td><td>شامل (Full)</td><td>خوادمك فقط: يضيف فحص المنافذ والنطاقات الفرعية</td></tr>
+<tr><td>4</td><td>مخصص (Custom)</td><td>تختار كل خيار بنفسك</td></tr>
+</tbody>
+</table>
+
+</div>
+
+6. عند اختيار 2 أو 3 أو 4 تسألك الأداة: هل تملك الموقع أو لديك إذن مكتوب بفحصه؟ إذا أجبت بلا، يتحول الفحص تلقائياً إلى الوضع السلبي.
+7. بعد انتهاء الفحص يُحفظ تقرير HTML **دائماً** في المجلد <code dir="ltr">Documents\SiteAudit-Reports</code>، ويُفتح في المتصفح تلقائياً. اسم الملف يحمل اسم الموقع وتاريخ الفحص ووقته.
+8. تسألك الأداة إن كنت تريد فحص موقع آخر، أو تضغط Enter للخروج.
+
+القائمة في نافذة Windows باللغة الإنجليزية، لأن طرفية Windows لا تعرض الحروف العربية بشكل سليم. أما التقرير فعربي كامل في المتصفح.
+
+إذا لم يكن بايثون مثبتاً، يخبرك الملف بذلك ويفتح صفحة التحميل. ويجب أن يبقى الملفان <code dir="ltr">site-audit-windows.bat</code> و<code dir="ltr">site_audit.py</code> في نفس المجلد.
+
+**طريقة سطر الأوامر**
+
+افتح **Windows Terminal** أو PowerShell في مجلد الأداة:
+
+```powershell
+py site_audit.py example.com --html report.html --open
+```
 
 للتحميل من PowerShell:
 
 ```powershell
 curl.exe -O https://raw.githubusercontent.com/astrom2/site-audit/main/site_audit.py
-```
-
-طرفية Windows لا تعرض العربي من اليمين لليسار بشكل جيد، لذلك يُفضّل حفظ التقرير وفتحه في المتصفح:
-
-```powershell
-py site_audit.py example.com --html report.html --open
 ```
 
 ### أندرويد عبر Termux
@@ -253,6 +278,7 @@ python3 site_audit.py [OPTIONS] TARGET [TARGET ...]
 <tr><td nowrap>الخيار <kbd dir="ltr">-q</kbd></td><td>عرض المشاكل فقط في الطرفية</td></tr>
 <tr><td nowrap>الخيار <kbd dir="ltr">--no-color</kbd></td><td>إلغاء الألوان</td></tr>
 <tr><td nowrap>الخيار <kbd dir="ltr">--timeout N</kbd></td><td>مهلة كل اتصال بالثواني، والافتراضي 10</td></tr>
+<tr><td nowrap>الخيار <kbd dir="ltr">-i</kbd></td><td>الوضع التفاعلي: يسألك عن الموقع ونوع الفحص، ويحفظ تقرير HTML ويفتحه تلقائياً. يعمل أيضاً عند تشغيل الأداة بدون أي خيارات</td></tr>
 <tr><td nowrap>الخيار <kbd dir="ltr">-h</kbd></td><td>عرض المساعدة</td></tr>
 </tbody>
 </table>
