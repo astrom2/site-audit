@@ -181,6 +181,13 @@ python3 site_audit.py example.com
 
 إذا لم يكن بايثون مثبتاً، يخبرك الملف بذلك ويفتح صفحة التحميل. ويجب أن يبقى الملفان <code dir="ltr">site-audit-windows.bat</code> و<code dir="ltr">site_audit.py</code> في نفس المجلد.
 
+**إذا لم تفتح الأداة**
+
+- **ظهر تحذير Windows protected your PC:** اضغط **More info** ثم **Run anyway**. ولتجنّبه، كليك يمين على ملف ZIP قبل فك الضغط، ثم **Properties**، وفعّل **Unblock**.
+- **فتحت الملف من داخل ZIP مباشرة:** فك الضغط أولاً بـ **Extract All**، ثم شغّل الملف من المجلد الناتج.
+- **ظهرت رسالة أن Python غير مثبت:** ثبّته من python.org وفعّل **Add python.exe to PATH**. نسخة python التي تفتح متجر Microsoft ليست تثبيتاً حقيقياً.
+- **توقفت الأداة برسالة خطأ:** النافذة تبقى مفتوحة وتعرض السبب. صوّرها وافتح بها Issue في المستودع.
+
 **طريقة سطر الأوامر**
 
 افتح **Windows Terminal** أو PowerShell في مجلد الأداة:

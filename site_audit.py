@@ -48,7 +48,7 @@ import warnings
 
 warnings.filterwarnings("ignore", category=DeprecationWarning)
 
-VERSION = "2.2"
+VERSION = "2.2.1"
 UA = "Mozilla/5.0 (compatible; SiteAudit/%s; +security-self-assessment)" % VERSION
 
 PASS, WARN, FAIL, INFO = "pass", "warn", "fail", "info"
@@ -1674,7 +1674,6 @@ def interactive():
     print("  " + L["title"])
     print("  " + L["legal"])
     print("=" * 66)
-    code = 0
     while True:
         print()
         raw = ask(L["ask_site"])
@@ -1717,8 +1716,6 @@ def interactive():
             n = r.counts()
             print()
             print(L["result"] % (r.score(), r.grade(), n[FAIL], n[WARN], n[PASS]))
-            if n[FAIL]:
-                code = 1
 
         stamp = dt.datetime.now().strftime("%Y-%m-%d_%H%M")
         first = re.sub(r"[^\w.-]", "_", all_res[0].target)
@@ -1735,7 +1732,7 @@ def interactive():
             break
     print()
     ask(L["bye"])
-    return code
+    return 0
 
 
 def main():
@@ -1783,7 +1780,7 @@ def main():
                 input(UI["en" if os.name == "nt" else "ar"]["bye"])
             except EOFError:
                 pass
-            sys.exit(1)
+            sys.exit(3)
 
     targets = list(a.targets)
     if a.file:
@@ -1821,6 +1818,14 @@ def main():
 
 
 if __name__ == "__main__":
+    if sys.version_info < (3, 8):
+        print("Site Audit needs Python 3.8 or newer. You have %s." % sys.version.split()[0])
+        print("Download it from https://www.python.org/downloads/")
+        try:
+            input("Press Enter to exit...")
+        except EOFError:
+            pass
+        sys.exit(3)
     try:
         main()
     except KeyboardInterrupt:
